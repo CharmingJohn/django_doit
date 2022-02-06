@@ -3,3 +3,4 @@ db.sqlite3
 /django_doit/__pycache__/
 *.py[cod]
 /blog/migrations/
+_media/
