@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 # Create your tests here.
 
@@ -10,8 +10,35 @@ class TestView(TestCase):
         self.client = Client()
         self.user_chae1234 = User.objects.create_user(username='chae1234', password='')
 
-        self.category_programming = Category.obejcts.create(name='programming', slug='programming')
+        self.category_programming = Category.objects.create(name='programming', slug='programming')
         self.category_music = Category.objects.create(name='music', slug='music')
+
+        self.tag_python_kor = Tag.objects.create(name='python study', slug='python-study')
+        self.tag_python = Tag.objects.create(name='python', slug='python')
+        self.tag_hello = Tag.objects.create(name='hello', slug='hello')
+
+        self.post_001 = Post.objects.create(
+            title='first post',
+            content='hello world',
+            category=self.category_programming,
+            author=self.user_chae1234,
+        )
+        self.post_001.tags.add(self.tag_hello)
+
+        self.post_002 = Post.objects.create(
+            title='second post',
+            content='second world',
+            category=self.category_music,
+            author=self.user_chae1234,
+        )
+
+        self.post_003 = Post.objects.create(
+            title='third post',
+            content='there may be no category',
+            author=self.user_chae1234
+        )
+        self.post_003.tags.add(self.tag_python_kor)
+        self.post_003.tags.add(self.tag_python)
 
     def test_category_page(self):
         response = self.client.get*self.category_programming.get_absolute_url()
@@ -110,7 +137,7 @@ class TestView(TestCase):
         )
         '''
         # 1.2 url of upper post is 'blog/1/'
-        self.assertEqual(self.post_001.get_absolute_url(), '/blog/1/')
+        self.assertEqual(self.post_001.get_absolute_url(), '/blog/1')
 
         # 2. test detail of the first post
         # 2.1 first post url
@@ -140,6 +167,10 @@ class TestView(TestCase):
 
         # 2.6 content of the first post in post_area
         self.assertIn(self.post_001.content, post_area.text)
+
+        self.assertIn(self.tag_hello.name, post_area.text)
+        self.assertIn(self.tag_python.name, post_area.text)
+        self.assertIn(self.tage_python_kor.name, post_area.text)
 
 
 '''
