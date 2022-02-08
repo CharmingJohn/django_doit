@@ -57,7 +57,7 @@ class TestView(TestCase):
         self.assertNotIn(self.post_003.title, main_area.text)
 
     def test_category_page(self):
-        response = self.client.get*self.category_programming.get_absolute_url()
+        response = self.client.get(self.category_programming.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
         soup = BeautifulSoup(response.conent, 'html.parser')
