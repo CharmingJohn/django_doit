@@ -87,16 +87,18 @@ class TestView(TestCase):
 
     def test_post_detail(self):
         # 1.1 one post
+        '''
         post_001 = Post.objects.create(
             title='first post',
             conent='hello world',
         )
+        '''
         # 1.2 url of upper post is 'blog/1/'
-        self.assertEqual(post_001.get_absolute_url(), '/blog/1/')
+        self.assertEqual(self.post_001.get_absolute_url(), '/blog/1/')
 
         # 2. test detail of the first post
         # 2.1 first post url
-        response = self.client.get(post_001.get_absolute_url())
+        response = self.client.get(self.post_001.get_absolute_url())
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
 
@@ -106,18 +108,22 @@ class TestView(TestCase):
         # self.assertIn('Blog', navbar.text)
         # self.assertIn('About me', navbar.text)
 
+        self.category_card_test(soup)
+
         # 2.3 web browser title in title of first post
-        self. assertIn(post_001.title, soup.title.text)
+        self. assertIn(self.post_001.title, soup.title.text)
 
         # 2.4 title of the first post in post_area
         main_area = soup.find('div', id='main-area')
         post_area = soup.find('div', id='post-area')
-        self.assertIn(post_001.title, post_area.text)
+        self.assertIn(self.post_001.title, post_area.text)
+        self.assertIn(self.category_programming.name, post_area.text)
 
         # 2.5 author of the first post in post_area
+        self.assertIn(self.category_programming.name, post_area.text)
 
         # 2.6 content of the first post in post_area
-        self.assertIn(post_001.content, post_area.text)
+        self.assertIn(self.post_001.content, post_area.text)
 
 
 '''
