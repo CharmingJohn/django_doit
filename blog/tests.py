@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 
 # Create your tests here.
 
@@ -39,6 +39,12 @@ class TestView(TestCase):
         )
         self.post_003.tags.add(self.tag_python_kor)
         self.post_003.tags.add(self.tag_python)
+
+        self.comment_001 = Comment.objects.create(
+            post=self.post_001,
+            author=self.user_chae1234,
+            content='first comment'
+        )
 
     def test_create_post(self):
         response = self.client.get('/blog/create_post/')
@@ -264,6 +270,11 @@ class TestView(TestCase):
         self.assertIn(self.tag_python.name, post_area.text)
         self.assertIn(self.tage_python_kor.name, post_area.text)
 
+        # comment area
+        comment_area = soup.find('div', id='comment_area')
+        comment_001_area = comment_area.find('div', id='commnet-1')
+        self.assertIn(self.comment_001.author.username, comment_001_area.text)
+        self.assertIn(self.comment_001.content, comment_001_area.text)
 
 '''
     def test_post_list(self):
