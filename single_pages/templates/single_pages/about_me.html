@@ -1,19 +1,138 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>실리콘밸리 갈 사람</title>
+    <title> About me </title>
+
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'single_pages/css/about_me.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav>
-  <a href="/blog/">Blog</a>
-  <a href="/about_me">About_me</a>
-</nav>
 
-<h1>실리콘 밸리 간다</h1>
-<h2>이력</h2>
-<h2>Portfolio</h2>
-<h3>공사중</h3>
+{% include 'blog/navbar.html' %}
+
+<section>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1> I am mjchae</h1>
+                <br/>
+                <p class="lead">
+                    I will go there<br/>
+                    Santa Clara, Paloalto, San francisco, Redwoodcity
+                </p>
+
+                <ul>
+                    <li>WORK EXPERIENCE</li>
+                    <ul>
+                        <li>AI researcher</li>
+                        <li>python backend engineer(flask, django)</li>
+                    </ul>
+                    <li>EDUCATION</li>
+                    <ul>
+                        <li>SNU</li>
+                        <li>Bachelor of Electircal and Information engineering</li>
+                        <li>Bachelor of Biotechnology</li>
+                    </ul>
+                    <li>PUBLISH</li>
+                    <ul>
+                        <li>Live forever</li>
+                    </ul>
+                </ul>
+
+            </div>
+            <div class="col-lg-4">
+                <img class="img-fluid" src="{% static 'single_pages/images/ETNZ-06.png' %}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light margin-for-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>PORTFOLIO</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card" data-toggle="modal" data-target="#pycon2017">
+                    <img class="card-img-top" src="{% static 'single_pages/images/heisnapoleon.png' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">Here comes the hero.</h5>
+                        <p>Napoleon. Yes he is</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card" data-toggle="modal" data-target="#inflearn_django2">
+                    <img class="card-img-top" src="{% static 'single_pages/images/heisnapoleon.png' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">He is a pirate(?)</h5>
+                        <p>Napoleon. Yes he is</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card" data-toggle="modal" data-target="#automation_python">
+                    <img class="card-img-top" src="{% static 'single_pages/images/heisnapoleon.png' %}">
+                    <div class="card-body">
+                        <h5 class="card-title">From small island. </h5>
+                        <p>image from assasin's creed unity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="pycon2017" tabindex="-1" role="dialog" aria-labelledby="pycon2017ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pycon2017ModalLabel">It's going to the end</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <img class="img-fluid" src="{% static 'single_pages/images/heisnapoleon.png' %}">
+                    </div>
+                    <div class="col-lg-5">
+                        <p>드디어 끝이 보인다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-bottom">
+    {% include 'blog/footer.html' %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
 
 </body>
 </html>
