@@ -122,6 +122,55 @@ class TestView(TestCase):
         self.assertIn('Hi, we are the world', main_area.text)
         self.assertIn(self.category_music.name, main_area.text)
 
+    def test_comment_update(self):
+        comment_by_chae1234 = Comment.objects.create(
+            post=self.post_001,
+            author=self.user_chae1234,
+            content='comment form chae1234'
+        )
+
+        response = self.client.get(self.post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html_parser')
+
+        comment_area = soup.find('div', id='comment-area')
+        self.assertFalse(comment_area.find('a', id='comment-1-update-btn'))
+        self.assertFalse(comment_area.find('a', id='comment-2-update-btn'))
+
+        # status log in
+        self.client.login(username='chae1234', password='somepassword')
+        response = self.client.get(self.post_001.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html_parser')
+        comment_area = soup.find('div', id='comment-area')
+        self.assertFalse(comment_area.find('a', id='comment-2-update-btn'))
+        comment_001_update_btn = comment_area.find('a', id='comment-1-update-btn')
+        self.assertIn('edit', comment_001_update_btn.text)
+        self.assertEqual(comment_001_update_btn.attrs['href'], '/blog/update_comment/1/')
+
+        response = self.client.get('/blog/update_comment/1/')
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.contetn, 'html.parser')
+
+        self.assertEqual('Edit comment - Blog', soup.title.text)
+        update_comment_form = soup.find('form', id='comment-form')
+        content_textarea = update_comment_form.find('textarea', id='id_content')
+        self.assertIn(self.comment_001.content, content_textarea.text)
+
+        response = self.client.post(
+            '/blog/update_comment/{}/'.format(self.comment_001.pk),
+            {
+                'content' : 'edit comment from chae1234',
+            },
+            follow = True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        comment_001_div = soup.find('div', id='comment-1')
+        self.assertIn('edit commetn form chae1234', comment_001_div.text)
+        self.assertIn('Updated', comment_001_div.text)
 
     def test_comment_form(self):
         self.assertEqual(Comment.objects.count(), 1)
@@ -163,10 +212,10 @@ class TestView(TestCase):
         new_comment = Comment.objects.last()
 
         soup = BeautifulSoup(response.content, 'html.parser')
-        self.assertIn(new_commnet.post.title, soup.title.text)
+        self.assertIn(new_comment.post.title, soup.title.text)
 
         comment_area = soup.find('div', id='comment-area')
-        new_comment_div = comment_area.find('div', id='comment-{}'.format(new_commnet.pk))
+        new_comment_div = comment_area.find('div', id='comment-{}'.format(new_comment.pk))
         self.assertIn('chae1234', new_comment_div.text)
         self.assertIn('comment from chae1234', new_comment_div.text)
 
