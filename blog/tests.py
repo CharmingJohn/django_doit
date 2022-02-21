@@ -428,6 +428,24 @@ class TestView(TestCase):
         self.assertIn(self.comment_001.author.username, comment_001_area.text)
         self.assertIn(self.comment_001.content, comment_001_area.text)
 
+    def test_search(self):
+        post_about_python = Post.objects.create(
+            title='post_about_python',
+            content='Hello world, We are the world',
+            author=self.user_chae1234
+        )
+
+        response = self.client.get('/blog/search/python/')
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        main_area = soup.find('div', id='main-area')
+
+        self.assertIn('Search: python (2)', main_area.text)
+        self.assertNotIn(self.post_001.title, main_area.text)
+        self.assertNotIn(self.post_002.title, main_area.text)
+        self.assertIn(self.post_003.title, main_area.text)
+        self.assertIn(post_about_python, main_area.text)
 '''
     def test_post_list(self):
         # 1.1 get the post list page
