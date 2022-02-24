@@ -12,7 +12,7 @@ python 3.9.10
 ## Docker command
 
 ---
-```
+```~python
 docker-compose build # build docker image
 docker-compose up # run docker container
 docker-compose exec web python manage.py migrate # migrate posgresql container
