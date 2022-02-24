@@ -5,6 +5,8 @@ django 3.2.10,
 
 db = postgresql 12.10
 
+python 3.9.10
+
 ---
 
 ## Docker command
@@ -25,4 +27,5 @@ db port : 5432 (you can find in ```.env.dev```)
 
 ---
 visit 127.0.0.1:8000/admin/sites/site/
+
 Domain name : example.com -> 127.0.0.1:8000
