@@ -4,3 +4,5 @@ db.sqlite3
 *.py[cod]
 /blog/migrations/
 _media/
+.env.prod
+.env.prod.db

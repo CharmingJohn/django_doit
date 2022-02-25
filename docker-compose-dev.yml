@@ -11,18 +11,16 @@ services:
     ports:
       - 8000:8000
     env_file:
-      - ./.env.prod
+      - ./.env.dev
     depends_on:
       - db
   db:
     image: postgres:12.10
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    # environment:
-    #   - POSTGRES_USER=chae1234_db_user
-    #   - POSTGRES_PASSWORD=chae1234_db_password
-    #   - POSTGRES_DB=chae1234_dev
-    env_file:
-      - ./.env.prod.db
+    environment:
+      - POSTGRES_USER=chae1234_db_user
+      - POSTGRES_PASSWORD=chae1234_db_password
+      - POSTGRES_DB=chae1234_dev
 volumes:
   postgres_data:
