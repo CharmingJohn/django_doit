@@ -84,4 +84,4 @@ class Comment(models.Model):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return 'http://placehold.it/50x50'
+            return 'https://doitdjango.com/avatar/id/579/cc3a9598f229e546/svg/{}'.format(self.author.email)
