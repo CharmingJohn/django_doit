@@ -65,7 +65,7 @@ class Post(models.Model):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return 'https://doitdjango.com/avatar/id/chae1234/abcdefg/svg/{}'.format(self.author.email)
+            return 'https://doitdjango.com/avatar/id/579/cc3a9598f229e546/svg/{}'.format(self.author.email)
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
